@@ -64,9 +64,9 @@ try {
         $errorMsg = "Error: Directory '$TargetDir' does not exist"
         Write-Host $errorMsg -ForegroundColor Red
         Write-Log -Message $errorMsg -Level "ERROR"
-        if ($IsDebugMode) {
-            Read-Host "Press Enter to exit..."
-        }
+        Write-Host ""
+        Write-Host "Press any key to exit..." -ForegroundColor Yellow
+        $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
         exit 1
     }
 
@@ -116,12 +116,9 @@ try {
         Write-Host "   - $env:LOCALAPPDATA\npm\claude.cmd"
         Write-Log -Message $errorMsg -Level "ERROR"
         Write-Log -Message "Log file: $LogFile" -Level "ERROR"
-
-        if ($IsDebugMode) {
-            Write-Host ""
-            Write-Host "Log file: $LogFile" -ForegroundColor Cyan
-            Read-Host "Press Enter to exit..."
-        }
+        Write-Host ""
+        Write-Host "Press any key to exit..." -ForegroundColor Yellow
+        $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
         exit 1
     }
 
@@ -143,11 +140,13 @@ try {
 
         Write-Log -Message "Claude Code exited, code: $exitCode"
 
-        if ($exitCode -ne 0 -and $IsDebugMode) {
+        if ($exitCode -ne 0) {
             Write-Host ""
             Write-Host "Claude Code exited abnormally (code: $exitCode)" -ForegroundColor Yellow
             Write-Host "Log file: $LogFile" -ForegroundColor Cyan
-            Read-Host "Press Enter to exit..."
+            Write-Host ""
+            Write-Host "Press any key to exit..." -ForegroundColor Yellow
+            $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
         }
 
         exit $exitCode
@@ -158,11 +157,9 @@ try {
         Write-Host "Current path: $ClaudePath" -ForegroundColor Yellow
         Write-Host "For security reasons, execution denied" -ForegroundColor Yellow
         Write-Log -Message "$errorMsg, path: $ClaudePath" -Level "ERROR"
-
-        if ($IsDebugMode) {
-            Write-Host "Log file: $LogFile" -ForegroundColor Cyan
-            Read-Host "Press Enter to exit..."
-        }
+        Write-Host ""
+        Write-Host "Press any key to exit..." -ForegroundColor Yellow
+        $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
         exit 1
     }
 }
@@ -174,12 +171,8 @@ catch {
     Write-Host "Location: $($_.InvocationInfo.ScriptLineNumber):$($_.InvocationInfo.OffsetInLine)" -ForegroundColor Yellow
     Write-Log -Message "$errorMsg`nStack: $($_.ScriptStackTrace)" -Level "ERROR"
     Write-Log -Message "Log file: $LogFile" -Level "ERROR"
-
-    if ($IsDebugMode) {
-        Write-Host ""
-        Write-Host "Full log file: $LogFile" -ForegroundColor Cyan
-        Write-Host "Use --debug flag to see detailed information" -ForegroundColor Cyan
-        Read-Host "Press Enter to exit..."
-    }
+    Write-Host ""
+    Write-Host "Press any key to exit..." -ForegroundColor Yellow
+    $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
     exit 1
 }
