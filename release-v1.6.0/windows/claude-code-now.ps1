@@ -26,9 +26,6 @@ function Write-Log {
     }
 }
 
-# Check if in debug mode
-$IsDebugMode = $args -contains "--debug" -or $args -contains "-d"
-
 try {
     Write-Log -Message "=== Claude Code Now Starting ==="
     Write-Log -Message "Args: $($args -join ' ')"
